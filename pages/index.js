@@ -9,12 +9,12 @@ function Titulo(props) {
     <>
       <Tag>{props.children}</Tag>
       <style jsx>{`
-            ${Tag} {
-                color: ${appConfig.theme.colors.neutrals['000']};
-                font-size: 24px;
-                font-weight: 600;
-            }
-            `}</style>
+        ${Tag} {
+            color: ${appConfig.theme.colors.neutrals['000']};
+            font-size: 24px;
+            font-weight: 600;
+        }
+        `}</style>
     </>
   );
 }
@@ -33,7 +33,12 @@ function Titulo(props) {
 // export default HomePage
 
 export default function PaginaInicial() {
+  // const username = 'fernandolopestavares';
+  // quando usa o useState do React, ele te da tanto o username
+  // como ele tambem te da o setUsername. Permite que voce defina
+  // um novo valor
   const [username, setUsername] = React.useState('fernandolopestavares');
+    // variavel para roteamento da pagina
   const roteamento = useRouter();
 
   return (
@@ -46,7 +51,7 @@ export default function PaginaInicial() {
           backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundBlendMode: 'multiply',
         }}
       >
-        <Box
+      <Box
           styleSheet={{
             display: 'flex',
             alignItems: 'center',
@@ -65,8 +70,14 @@ export default function PaginaInicial() {
           <Box
             as="form"
             onSubmit={function (infosDoEvento) {
+              // sempre que tiver uma submissao, o react faz alguma acao
               infosDoEvento.preventDefault();
-              roteamento.push('/chat');
+              console.log('Alguém submeteu o form');
+              // comando para direcionar a pagina chat quando clica
+              // no botao submit
+              // window.location.href = '/chat'; ------- jeito antigo
+              // roteamento.push('/chat?username=' + username);
+              roteamento.push(`/chat?username=${username}`);
             }}
             styleSheet={{
               display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
@@ -77,6 +88,19 @@ export default function PaginaInicial() {
             <Text variant="body3" styleSheet={{ marginBottom: '32px', color: appConfig.theme.colors.neutrals[300] }}>
               {appConfig.name}
             </Text>
+
+            {/* <input
+              type="text"
+              value={username}
+              onChange={function (event) {
+                console.log('usuario digitou', event.target.value);
+                // onde ta o valor?
+                const valor = event.target.value;
+                // trocar o valor da variável
+                // atraves do React
+                setUsername(valor);
+              }}
+            /> */}
 
             <TextField
               value={username}
@@ -134,6 +158,7 @@ export default function PaginaInicial() {
                 borderRadius: '50%',
                 marginBottom: '16px',
               }}
+              // pode adicionar mais API
               src={`https://github.com/${username}.png`}
             />
             <Text
